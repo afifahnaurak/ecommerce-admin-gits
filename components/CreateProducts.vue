@@ -13,9 +13,11 @@ const schema = object({
   category: string().required().label("Category"),
   description: string().required().label("Description"),
 });
+
 const { handleSubmit, resetForm, values } = useForm({
   validationSchema: schema,
 });
+
 const onSubmit = handleSubmit((values) => {
   const newProduct = {
     id: Math.random(),
@@ -38,6 +40,7 @@ const price = ref(0);
 const category = ref("");
 const description = ref("");
 </script>
+
 <template>
   <ClientOnly>
     <VCard>
@@ -86,4 +89,5 @@ const description = ref("");
     </VCard>
   </ClientOnly>
 </template>
+
 <style lang="scss"></style>
