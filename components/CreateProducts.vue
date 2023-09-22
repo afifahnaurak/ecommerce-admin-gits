@@ -4,7 +4,7 @@ import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 import VEditor from "@morpheme/editor";
 import { object, string, mixed, number } from "yup";
 import { useForm } from "vee-validate";
-import { items } from "~/stores/products";
+import { useProductStore } from "~/stores/products";
 
 const schema = object({
   image: mixed().required().label("Image"),
@@ -19,15 +19,7 @@ const { handleSubmit, resetForm, values } = useForm({
 });
 
 const onSubmit = handleSubmit((values) => {
-  const newProduct = {
-    id: Math.random(),
-    image: values.image,
-    name: values.name,
-    price: values.price,
-    category: values.category,
-    description: values.description,
-  };
-  items.value.push(newProduct);
+  useProductStore().newProduct(values);
   resetForm();
   alert("Product added successfully!");
 });
