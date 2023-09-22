@@ -9,7 +9,7 @@ export const useProductStore = defineStore("product", {
       this.products.push({
         id: Math.random(),
         image:
-          "https://images.unsplash.com/photo-1587093336587-eeca6cb17cf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
+          "https://i.pinimg.com/564x/48/d0/c0/48d0c0ce75139eec1c78cc299149ed2d.jpg",
         name: values.name,
         price: values.price,
         category: values.category,
