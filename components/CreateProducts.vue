@@ -8,6 +8,7 @@ const schema = object({
   image: mixed().required().label("Image"),
   name: string().required().label("Name"),
   price: number().required().label("Price"),
+  category: string().required().label("Category"),
   description: string().required().label("Description"),
 });
 const { handleSubmit, resetForm, values } = useForm({
@@ -21,6 +22,7 @@ const isMobile = breakpoints.smaller("md");
 const image = ref("");
 const name = ref("");
 const price = ref(0);
+const category = ref("");
 const description = ref("");
 </script>
 <template>
@@ -49,6 +51,14 @@ const description = ref("");
             class="pl-4"
           />
         </div>
+        <VInput
+          v-model="category"
+          wrapper-class="mb-6"
+          name="category"
+          label="Category"
+          placeholder="Product Category"
+          class="pl-4"
+        />
         <VQuillEditor
           v-model="description"
           name="description"
@@ -57,6 +67,7 @@ const description = ref("");
         />
         <div class="mt-4">
           <VBtn type="submit" color="gray-blue" :block="isMobile"> Save </VBtn>
+          <VBtn type="button" text @click="resetForm">Reset</VBtn>
         </div>
       </form>
     </VCard>

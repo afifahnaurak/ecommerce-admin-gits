@@ -1,6 +1,6 @@
 <template>
-  <AppHeader title="Products" desc="Manage your products here" />
-  <EditProducts class="mt-6" />
+  <AppHeader title="Products" desc="Manage your products here" class="mb-6" />
+  <EditProducts />
 </template>
 
 <script setup lang="ts">
