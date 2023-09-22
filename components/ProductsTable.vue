@@ -57,7 +57,7 @@ const headers = ref<VDataTableHeader[]>([
       <VDataTable :items="items" :headers="headers" hover>
         <template #item.image="{ item }">
           <div class="overflow-hidden rounded-md w-12 h-12 object-cover">
-            <NuxtImg :src="String(item.image[0])" />
+            <NuxtImg :src="String(item.image)" alt="Product Image" />
           </div>
         </template>
         <template #item.id="{ item }">

@@ -50,6 +50,7 @@ function onConfirm() {
 function onDelete(id: number) {
   items.value = items.value.filter((item) => item.id !== id);
   modalDeleteIsOpen.value = false;
+  alert("Delete");
 }
 </script>
 

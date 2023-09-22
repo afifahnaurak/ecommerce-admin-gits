@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
-import { VQuillEditor } from "@morpheme/quill-editor";
+import VEditor from "@morpheme/editor";
 import { object, string, mixed, number } from "yup";
 import { useForm } from "vee-validate";
+import { items } from "~/stores/products";
+
 const schema = object({
   image: mixed().required().label("Image"),
   name: string().required().label("Name"),
@@ -15,8 +17,19 @@ const { handleSubmit, resetForm, values } = useForm({
   validationSchema: schema,
 });
 const onSubmit = handleSubmit((values) => {
-  alert(JSON.stringify(values));
+  const newProduct = {
+    id: Math.random(),
+    image: values.image,
+    name: values.name,
+    price: values.price,
+    category: values.category,
+    description: values.description,
+  };
+  items.value.push(newProduct);
+  resetForm();
+  alert("Product added successfully!");
 });
+
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isMobile = breakpoints.smaller("md");
 const image = ref("");
@@ -59,7 +72,7 @@ const description = ref("");
           placeholder="Product Category"
           class="pl-4"
         />
-        <VQuillEditor
+        <VEditor
           v-model="description"
           name="description"
           label="Description"
