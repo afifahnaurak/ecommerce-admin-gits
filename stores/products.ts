@@ -1,4 +1,23 @@
 import { ref } from "vue";
+import { defineStore } from "pinia";
+
+export const useProductStore = defineStore("product", {
+  state: () => ({ products: items }),
+  getters: {},
+  actions: {
+    newProduct(values) {
+      this.products.push({
+        id: Math.random(),
+        image:
+          "https://images.unsplash.com/photo-1587093336587-eeca6cb17cf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
+        name: values.name,
+        price: values.price,
+        category: values.category,
+        description: values.description,
+      });
+    },
+  },
+});
 
 function GenerateRandomPicsumImageLinks(count: number) {
   const imageLinks = [];

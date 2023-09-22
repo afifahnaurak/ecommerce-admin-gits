@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import type { VDataTableHeader } from "@morpheme/table";
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
-import { items } from "~/stores/products";
+import { useProductStore } from "~/stores/products";
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isMobile = breakpoints.smaller("md");
@@ -54,7 +54,7 @@ const headers = ref<VDataTableHeader[]>([
           </VBtn>
         </NuxtLink>
       </div>
-      <VDataTable :items="items" :headers="headers" hover>
+      <VDataTable :items="useProductStore().products" :headers="headers" hover>
         <template #item.image="{ item }">
           <div class="overflow-hidden rounded-md w-12 h-12 object-cover">
             <NuxtImg :src="String(item.image)" alt="Product Image" />

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
-import { VQuillEditor } from "@morpheme/quill-editor";
+import VEditor from "@morpheme/editor";
 import { object, string, mixed, number } from "yup";
 import { useForm } from "vee-validate";
+
 const schema = object({
   image: mixed().required().label("Image"),
   name: string().required().label("Name"),
@@ -11,12 +12,15 @@ const schema = object({
   category: string().required().label("Category"),
   description: string().required().label("Description"),
 });
+
 const { handleSubmit, resetForm, values } = useForm({
   validationSchema: schema,
 });
+
 const onSubmit = handleSubmit((values) => {
   alert(JSON.stringify(values));
 });
+
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isMobile = breakpoints.smaller("md");
 const image = ref("");
@@ -25,6 +29,7 @@ const price = ref(0);
 const category = ref("");
 const description = ref("");
 </script>
+
 <template>
   <ClientOnly>
     <VCard>
@@ -59,7 +64,7 @@ const description = ref("");
           placeholder="Product Category"
           class="pl-4"
         />
-        <VQuillEditor
+        <VEditor
           v-model="description"
           name="description"
           label="Description"
@@ -67,7 +72,6 @@ const description = ref("");
         />
         <div class="mt-4">
           <VBtn type="submit" color="gray-blue" :block="isMobile"> Save </VBtn>
-          <VBtn type="button" text @click="resetForm">Reset</VBtn>
         </div>
       </form>
     </VCard>
