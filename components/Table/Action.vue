@@ -17,19 +17,23 @@
     centered
     footer-class="flex-row-reverse"
     close-text="Cancel"
-    @confirm="onConfirm"
+    @confirm="onDelete(id)"
   >
     <p>Are you sure want to delete this item?</p>
   </VModal>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { items } from "~/stores/products";
 
-const { path } = defineProps<{
-  id?: string | number;
+defineProps<{
+  id: number;
   path?: string;
 }>();
+
+let idToDelete: number | null = null;
 
 const modalDeleteIsOpen = ref(false);
 const router = useRouter();
@@ -41,6 +45,11 @@ function goToEditPage() {
 
 function onConfirm() {
   alert("Delete");
+}
+
+function onDelete(id: number) {
+  items.value = items.value.filter((item) => item.id !== id);
+  modalDeleteIsOpen.value = false;
 }
 </script>
 
