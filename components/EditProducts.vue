@@ -1,0 +1,73 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
+import { VQuillEditor } from "@morpheme/quill-editor";
+import { object, string, mixed, number } from "yup";
+import { useForm } from "vee-validate";
+
+const schema = object({
+  image: mixed().required().label("Image"),
+  name: string().required().label("Name"),
+  price: number().required().label("Price"),
+  content: string().required().label("Content"),
+});
+
+const { handleSubmit, resetForm, values } = useForm({
+  validationSchema: schema,
+});
+
+const onSubmit = handleSubmit((values) => {
+  alert(JSON.stringify(values));
+});
+
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const isMobile = breakpoints.smaller("md");
+const image = ref("");
+const name = ref("");
+const price = ref(0);
+const content = ref("");
+</script>
+
+<template>
+  <VCard>
+    <div>
+      <p class="text-lg font-semibold pb-6">Edit Product</p>
+    </div>
+    <form @submit="onSubmit" class="border-none">
+      <ClientOnly>
+        <VFileUpload v-model="image" label="Image" theme="image" name="image" />
+      </ClientOnly>
+      <div class="grid grid-cols-2 gap-3 py-4">
+        <VInput
+          v-model="name"
+          wrapper-class="mb-2"
+          name="name"
+          label="Name"
+          placeholder="Product Name"
+          class="pl-4"
+        />
+        <VInput
+          v-model="price"
+          wrapper-class="mb-2"
+          name="price"
+          label="Price"
+          placeholder="Product Price"
+          class="pl-4"
+        />
+      </div>
+      <ClientOnly>
+        <VQuillEditor
+          v-model="content"
+          name="content"
+          label="Description"
+          placeholder="Input your content"
+        />
+      </ClientOnly>
+      <div class="mt-4">
+        <VBtn color="gray-blue" :block="isMobile"> Save </VBtn>
+      </div>
+    </form>
+  </VCard>
+</template>
+
+<style lang="scss"></style>

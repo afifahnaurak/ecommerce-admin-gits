@@ -1,0 +1,45 @@
+:root {
+  --body-bg-color: var(--color-white);
+  --body-text-color: var(--color-gray-700);
+}
+
+body {
+  background: var(--body-bg-color);
+  color: var(--body-text-color);
+
+  font-family: Poppins;
+
+  @apply transition-colors duration-300;
+}
+
+.btn-gray-blue {
+  --btn-bg-color: var(--color-gray-blue-500);
+  --btn-border-color: var(--color-gray-blue-500);
+  --btn-text-color: var(--color-white);
+}
+
+.btn-gray-blue:hover {
+  --btn-bg-color: var(--color-gray-blue-400);
+}
+
+.nav-drawer-gray-blue {
+  --nav-drawer-bg-color: var(--color-gray-blue-800);
+  --nav-drawer-text-color: var(--color-white);
+  --nav-drawer-border-color: var(--color-gray-blue-900);
+}
+
+.app-bar-gray-blue {
+  --app-bar-bg-color: var(--color-gray-blue-500);
+}
+
+.dark {
+  body {
+    --body-bg-color: var(--color-gray-blue-900);
+    --body-text-color: var(--color-gray-blue-200);
+  }
+
+  // change default app bar dark mode bg color
+  // .app-bar-default {
+  //   --app-bar-bg-color: theme('colors.neutral.900') !important;
+  // }
+}
