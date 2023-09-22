@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 import VEditor from "@morpheme/editor";
 import { object, string, mixed, number } from "yup";
 import { useForm } from "vee-validate";
 import { useProductStore } from "~/stores/products";
+
+const router = useRouter();
 
 const schema = object({
   image: mixed().required().label("Image"),
@@ -21,6 +24,7 @@ const { handleSubmit, resetForm, values } = useForm({
 const onSubmit = handleSubmit((values) => {
   useProductStore().newProduct(values);
   resetForm();
+  router.push("/products");
   alert("Product added successfully!");
 });
 
