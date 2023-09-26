@@ -9,6 +9,13 @@ const isMobile = breakpoints.smaller("md");
 
 const states = ["active", "inactive"];
 
+const searchTerm = ref<string>("");
+
+const searchProducts = () => {
+  const productStore = useProductStore();
+  productStore.searchProducts(searchTerm.value);
+};
+
 const headers = ref<VDataTableHeader[]>([
   {
     value: "image",
@@ -42,7 +49,12 @@ const headers = ref<VDataTableHeader[]>([
         class="flex w-full md:flex-no-wrap flex-wrap justify-between items-center gap-2 mb-5"
       >
         <div>
-          <VInput prepend-icon="ri:search-line" placeholder="Search" />
+          <VInput
+            v-model="searchTerm"
+            @keydown.enter="searchProducts"
+            prepend-icon="ri:search-line"
+            placeholder="Search"
+          />
         </div>
         <NuxtLink to="/products/create">
           <VBtn

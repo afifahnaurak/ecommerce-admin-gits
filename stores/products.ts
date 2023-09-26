@@ -35,6 +35,13 @@ export const useProductStore = defineStore("product", {
         });
       }
     },
+
+    searchProducts(searchTerm: string) {
+      const filteredProducts = items.value.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      this.products = filteredProducts;
+    },
   },
 });
 
