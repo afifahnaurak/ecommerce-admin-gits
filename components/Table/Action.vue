@@ -53,7 +53,6 @@ const modalDeleteIsOpen = ref(false);
 const modalShowIsOpen = ref(false);
 const router = useRouter();
 const productStore = useProductStore();
-const product = ref({});
 
 function goToEditPage() {
   const editRoute = `/products/edit/${id}`;
@@ -67,7 +66,7 @@ function onDelete(id: number) {
 }
 
 function modalShowHandler() {
-  productStore.product = productStore.products.filter((item) => item.id === id);
+  productStore.showProductDetails(id);
   modalShowIsOpen.value = true;
 }
 </script>
