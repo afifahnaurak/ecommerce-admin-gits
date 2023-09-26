@@ -5,6 +5,11 @@
 
 <script setup lang="ts">
 import type { VBreadcrumbItemProps } from "@morpheme/breadcrumbs";
+import { onMounted } from "vue";
+
+onMounted(() => {
+  document.title = "Admin Panel - Transactions";
+});
 
 definePageMeta({
   breadcrumbs: [
