@@ -36,6 +36,12 @@ export const useProductStore = defineStore("product", {
       }
     },
 
+    deleteProduct(productId: number) {
+      this.products = this.products.filter(
+        (product) => product.id !== productId
+      );
+    },
+
     searchProducts(searchTerm: string) {
       const filteredProducts = items.value.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())

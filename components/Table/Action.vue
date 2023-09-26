@@ -23,17 +23,17 @@
   </VModal>
   <VModal v-model="modalShowIsOpen" title="Detail Product" centered>
     <div>
-      <p class="font-medium text-lg">Image</p>
+      <VText variant="lg" font-weight="medium" class="mt-6">Image</VText>
       <img
         :src="String(productStore.product[0].image)"
         alt="Product Image"
         class="mt-4 mx-auto border rounded-xl"
       />
-      <VText variant="lg" font-weight="medium" class="pt-8">Product Name</VText>
+      <VText variant="lg" font-weight="medium" class="mt-6">Product Name</VText>
       <p class="mt-2">{{ productStore.product[0].name }}</p>
-      <p class="font-medium text-lg pt-8">Price</p>
+      <VText variant="lg" font-weight="medium" class="mt-6">Price</VText>
       <p class="mt-2">${{ productStore.product[0].price }}</p>
-      <p class="font-medium text-lg pt-8">Category</p>
+      <VText variant="lg" font-weight="medium" class="mt-6">Category</VText>
       <p class="mt-2">{{ productStore.product[0].category }}</p>
     </div>
   </VModal>
@@ -61,9 +61,7 @@ function goToEditPage() {
 }
 
 function onDelete(id: number) {
-  productStore.products = productStore.products.filter(
-    (item) => item.id !== id
-  );
+  productStore.deleteProduct(id);
   modalDeleteIsOpen.value = false;
   alert("Delete");
 }
