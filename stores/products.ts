@@ -1,15 +1,21 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { TProduct } from "~/types/product.type";
 
 export const useProductStore = defineStore("product", {
-  state: () => ({ products: items }),
+  state: () => ({
+    products: items,
+    product: {} as TProduct[],
+    loading: true,
+  }),
   getters: {},
   actions: {
-    newProduct(values) {
+    newProduct(values: any) {
       this.products.push({
         id: Math.random(),
-        image:
+        image: [
           "https://i.pinimg.com/564x/48/d0/c0/48d0c0ce75139eec1c78cc299149ed2d.jpg",
+        ],
         name: values.name,
         price: values.price,
         category: values.category,
@@ -17,7 +23,7 @@ export const useProductStore = defineStore("product", {
       });
     },
 
-    editProduct(productId, editedProduct) {
+    editProduct(productId: number, editedProduct: any) {
       const index = this.products.findIndex(
         (product) => product.id === productId
       );
@@ -42,7 +48,7 @@ function GenerateRandomPicsumImageLinks(count: number) {
   return imageLinks;
 }
 
-export const items = ref([
+export const items = ref<TProduct[]>([
   {
     id: 1,
     name: "Smartphone",
