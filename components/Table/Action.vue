@@ -26,29 +26,26 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { items } from "~/stores/products";
+import { useProductStore } from "~/stores/products";
 
-defineProps<{
+const { id } = defineProps<{
   id: number;
   path?: string;
 }>();
 
-let idToDelete: number | null = null;
-
 const modalDeleteIsOpen = ref(false);
 const router = useRouter();
+const productStore = useProductStore();
 
 function goToEditPage() {
-  const editRoute = "/products/edit";
+  const editRoute = `/products/edit/${id}`;
   router.push(editRoute);
 }
 
-function onConfirm() {
-  alert("Delete");
-}
-
 function onDelete(id: number) {
-  items.value = items.value.filter((item) => item.id !== id);
+  productStore.products = productStore.products.filter(
+    (item) => item.id !== id
+  );
   modalDeleteIsOpen.value = false;
   alert("Delete");
 }

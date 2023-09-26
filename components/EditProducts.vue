@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 import VEditor from "@morpheme/editor";
 import { object, string, mixed, number } from "yup";
 import { useForm } from "vee-validate";
+import { useProductStore } from "~/stores/products";
+
+const router = useRouter();
+
+const productStore = useProductStore();
+const { id } = useRoute().params;
+const productToEdit = ref(productStore.products[Number(id) - 1]);
 
 const schema = object({
   image: mixed().required().label("Image"),
@@ -18,15 +26,25 @@ const { handleSubmit, resetForm, values } = useForm({
 });
 
 const onSubmit = handleSubmit((values) => {
-  alert(JSON.stringify(values));
+  const editedProduct = {
+    image: values.image,
+    name: values.name,
+    price: values.price,
+    category: values.category,
+    description: values.description,
+  };
+
+  productStore.editProduct(productToEdit.value.id, editedProduct);
+  router.push("/products");
+  alert("Product edited successfully!");
 });
 
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isMobile = breakpoints.smaller("md");
-const image = ref("");
-const name = ref("");
-const price = ref(0);
-const category = ref("");
+const image = ref(productToEdit.value.image);
+const name = ref(productToEdit.value.name);
+const price = ref(productToEdit.value.price);
+const category = ref(productToEdit.value.category);
 const description = ref("");
 </script>
 

@@ -16,6 +16,19 @@ export const useProductStore = defineStore("product", {
         description: values.description,
       });
     },
+
+    editProduct(productId, editedProduct) {
+      const index = this.products.findIndex(
+        (product) => product.id === productId
+      );
+
+      if (index !== -1) {
+        this.products.splice(index, 1, {
+          ...this.products[index],
+          ...editedProduct,
+        });
+      }
+    },
   },
 });
 
